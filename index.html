@@ -1,22 +1,164 @@
-<!DOCTYPE html>
-<html>
-	<head>
-        <title>Nosaukums</title>
+<!doctype html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STUNDU LAIKI 8.-12. KLASEI</title>
+  <style>
+    :root { --bg:#f3f4f6; --fg:#111827; --card:#ffffff; --muted:#6b7280; --accent:#3b82f6; --barbg:#e5e7eb; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background:var(--bg); color:var(--fg); }
+    .wrap { min-height:100svh; display:grid; place-items:center; padding:24px; }
+    .container { width:100%; max-width:720px; display:flex; flex-direction:column; gap:16px; align-items:center; }
+    h1 { font-size:28px; margin:0 0 4px 0; text-align:center; }
+    .clock { font-size:20px; color:var(--fg); }
+    .card { width:100%; max-width:380px; background:var(--card); border-radius:16px; padding:16px; box-shadow:0 8px 24px rgba(0,0,0,.07); text-align:center; }
+    .title { font-size:18px; margin-bottom:8px; }
+    .muted { color:var(--muted); font-size:14px; }
+    .progress { width:100%; height:8px; border-radius:999px; background:var(--barbg); overflow:hidden; margin-top:8px; }
+    .bar { height:100%; width:0%; background:var(--accent); border-radius:999px; transition:width .25s linear; }
+    .next { font-size:18px; text-align:center; }
+    .dash { padding:16px; background:#fde68a; border-radius:16px; width:100%; max-width:380px; text-align:center; }
+    .grid { display:grid; gap:8px; width:100%; max-width:420px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="container">
+      <h1>STUNDU LAIKI 8.-12. KLASEI</h1>
+      <div id="time" class="clock">Laiks: —</div>
 
-    <link rel="stylesheet"
-    type="text/css"
-    href="style.css">
-    
-<title>
-Document 1
-</title>
+      <div id="current" class="card" hidden>
+        <div class="title">Tagad: <span id="currentLabel">—</span></div>
+        <div class="muted">Atlikušas <span id="remaining">—</span></div>
+        <div class="progress"><div id="progress" class="bar"></div></div>
+      </div>
 
-	</head>
+      <div id="noCurrent" class="dash">-</div>
 
-	<body>
-	<h1>Virsraksts</h1>
-	<b>BOLD</b>
-	</br>
-<button>Teksts, teksts un teksts </button>
-	</body>
-</html>fhjfhjfh
+      <div class="next">
+        Nākamais: <span id="nextLabel">—</span> (<span id="nextStart">—</span>)
+        <div class="muted">Pēc <span id="untilNext">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const schedule = [
+      { type: "lesson", nr: 1, start: "08:10", end: "08:50" },
+      { type: "break",  nr: null, start: "08:50", end: "09:00" },
+      { type: "lesson", nr: 2, start: "09:00", end: "09:40" },
+      { type: "break",  nr: null, start: "09:40", end: "09:50" },
+      { type: "lesson", nr: 3, start: "09:50", end: "10:30" },
+      { type: "break",  nr: null, start: "10:30", end: "10:40" },
+      { type: "lesson", nr: 4, start: "10:40", end: "11:20" },
+      { type: "break",  nr: null, start: "11:20", end: "11:30" },
+      { type: "lesson", nr: 5, start: "11:30", end: "12:10" },
+      { type: "break",  nr: null, start: "12:10", end: "12:20" },
+      { type: "lesson", nr: 6, start: "12:20", end: "13:00" },
+      { type: "lunch",  nr: null, start: "13:00", end: "13:30" },
+      { type: "lesson", nr: 7, start: "13:30", end: "14:10" },
+      { type: "break",  nr: null, start: "14:10", end: "14:20" },
+      { type: "lesson", nr: 8, start: "14:20", end: "15:00" },
+      { type: "break",  nr: null, start: "15:00", end: "15:10" },
+      { type: "lesson", nr: 9, start: "15:10", end: "15:50" },
+    ];
+
+    function parseTime(str, addDay = 0) {
+      const [h, m] = str.split(":").map(Number);
+      const d = new Date();
+      d.setDate(d.getDate() + addDay);
+      d.setHours(h, m, 0, 0);
+      return d;
+    }
+
+    function labelFor(item) {
+      if (!item) return "—";
+      if (item.type === "lesson") return `${item.nr}. stunda`;
+      if (item.type === "lunch") return "Pusdienas";
+      return "Pārtraukums";
+    }
+
+    function getCurrentPeriod(now = new Date()) {
+      for (let i = 0; i < schedule.length; i++) {
+        const s = parseTime(schedule[i].start);
+        const e = parseTime(schedule[i].end);
+        if (now >= s && now < e) {
+          const next = schedule[i + 1] || null;
+          return {
+            current: schedule[i],
+            next,
+            startTime: s,
+            endTime: e,
+            nextStart: next ? parseTime(next.start) : parseTime(schedule[0].start, 1)
+          };
+        }
+      }
+      const firstStart = parseTime(schedule[0].start);
+      const lastEnd   = parseTime(schedule[schedule.length - 1].end);
+      if (now < firstStart) {
+        return { current: null, next: schedule[0], startTime: null, endTime: null, nextStart: firstStart };
+      }
+      // pēc pēdējās stundas
+      return { current: null, next: schedule[0], startTime: null, endTime: null, nextStart: parseTime(schedule[0].start, 1) };
+    }
+
+    function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); }
+
+    function formatDuration(totalSeconds) {
+      totalSeconds = Math.max(0, Math.floor(totalSeconds));
+      const h = Math.floor(totalSeconds / 3600);
+      const m = Math.floor((totalSeconds % 3600) / 60);
+      const s = totalSeconds % 60;
+      if (h > 0) return `${h} h ${m} min ${s} sek`;
+      return `${m} min ${s} sek`;
+    }
+
+    const elTime = document.getElementById('time');
+    const elCurrent = document.getElementById('current');
+    const elNoCurrent = document.getElementById('noCurrent');
+    const elCurrentLabel = document.getElementById('currentLabel');
+    const elRemaining = document.getElementById('remaining');
+    const elProgress = document.getElementById('progress');
+    const elNextLabel = document.getElementById('nextLabel');
+    const elNextStart = document.getElementById('nextStart');
+    const elUntilNext = document.getElementById('untilNext');
+
+    function updateUI(){
+      const now = new Date();
+      elTime.textContent = `Laiks: ${now.toLocaleTimeString('lv-LV')}`;
+
+      const p = getCurrentPeriod(now);
+
+      // Current
+      if (p.current) {
+        elCurrent.hidden = false;
+        elNoCurrent.hidden = true;
+        elCurrentLabel.textContent = labelFor(p.current);
+        const remainingSec = (p.endTime - now) / 1000;
+        elRemaining.textContent = formatDuration(remainingSec);
+        const progress = ((now - p.startTime) / (p.endTime - p.startTime)) * 100;
+        elProgress.style.width = clamp(progress, 0, 100) + '%';
+        elProgress.style.background = p.current.type === 'lesson' ? '#3b82f6' : (p.current.type === 'lunch' ? '#f59e0b' : '#10b981');
+      } else {
+        elCurrent.hidden = false; // show card for consistent height, but as dash UI requested previously we keep separate dash
+        elNoCurrent.hidden = false;
+        elCurrentLabel.textContent = '—';
+        elRemaining.textContent = '—';
+        elProgress.style.width = '0%';
+        elProgress.style.background = '#3b82f6';
+      }
+
+      // Next
+      elNextLabel.textContent = labelFor(p.next);
+      elNextStart.textContent = p.next ? p.next.start : '—';
+      const untilNextSec = p.nextStart ? (p.nextStart - now) / 1000 : 0;
+      elUntilNext.textContent = formatDuration(untilNextSec);
+    }
+
+    updateUI();
+    setInterval(updateUI, 1000);
+  </script>
+</body>
+</html>
+
