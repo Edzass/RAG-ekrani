@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="lv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STUNDU LAIKI</title>
+  <style>
+    :root { --bg:#f3f4f6; --fg:#111827; --card:#ffffff; --muted:#6b7280; --accent:#3b82f6; --barbg:#e5e7eb; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial; background:var(--bg); color:var(--fg); }
+    .wrap { min-height:100svh; display:grid; place-items:center; padding:24px; position:relative; }
+    .container { width:100%; max-width:720px; display:flex; flex-direction:column; gap:16px; align-items:center; }
+    h1 { font-size:28px; margin:0 0 4px 0; text-align:center; }
+    .date { font-size:18px; color:var(--fg); font-weight:500; }
+    .clock { font-size:20px; color:var(--fg); font-style: italic; }
+    .card { width:100%; max-width:380px; background:var(--card); border-radius:16px; padding:16px; box-shadow:0 8px 24px rgba(0,0,0,.07); text-align:center; }
+    .title { font-size:18px; margin-bottom:8px; }
+    .muted { color:var(--muted); font-size:14px; }
+    .progress { width:100%; height:8px; border-radius:999px; background:var(--barbg); overflow:hidden; margin-top:8px; }
+    .bar { height:100%; width:0%; background:var(--accent); border-radius:999px; transition:width .25s linear; }
+    .next { font-size:18px; text-align:center; }
+    .dash { padding:16px; background:#fde68a; border-radius:16px; width:100%; max-width:380px; text-align:center; }
+    .buttons { display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap; justify-content:center; }
+    button { padding:8px 12px; border:none; border-radius:8px; cursor:pointer; background:var(--barbg); font-size:14px; }
+    button.active { background:var(--accent); color:#fff; }
+    .teksts1 { position:absolute; bottom:10px; right:10px; text-align:right; }
+    .teksts1 h1 { margin:0; line-height:1.2; }
+    @media (max-width: 600px) {
+      .teksts1 h1 { font-size: 40px; }
+    }
+    @media (min-width: 601px) and (max-width: 1000px) {
+      .teksts1 h1 { font-size: 50px; }
+    }
+    @media (min-width: 1001px) {
+      .teksts1 h1 { font-size: 90px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="container">
+      <div class="buttons">
+        <button id="btn13">1.-3. klase</button>
+        <button id="btn47">4.-7. klase</button>
+        <button id="btn812">8.-12. klase</button>
+      </div>
+      <h1 id="title">STUNDU LAIKI</h1>
+      <div id="date" class="date">—</div>
+      <div id="time" class="clock">Laiks: —</div>
+
+      <div id="current" class="card" hidden>
+        <div class="title">Tagad: <span id="currentLabel">—</span></div>
+        <div class="muted">Atlikušas <span id="remaining">—</span></div>
+        <div class="progress"><div id="progress" class="bar"></div></div>
+      </div>
+
+      <div id="noCurrent" class="dash">-</div>
+
+      <div class="next">
+        Nākamais: <span id="nextLabel">—</span> (<span id="nextStart">—</span>)
+        <div class="muted">Pēc <span id="untilNext">—</span></div>
+      </div>
+    </div>
+
+    <!-- Vārda dienas apakšējā stūrī -->
+    <div class="teksts1">
+      <h1 id="nameday">—</h1>
+    </div>
+  </div>
+
+  <script>
+    const elDate=document.getElementById('date');
+    function updateDate(){
+      const now=new Date();
+      const options={weekday:"long", year:"numeric", month:"long", day:"numeric"};
+      const parts=new Intl.DateTimeFormat('lv-LV',options).format(now);
+      elDate.textContent=parts.charAt(0).toUpperCase()+parts.slice(1);
+    }
+    setInterval(updateDate,1000);
+    updateDate();
+
+    const namedays = {
+      "01-01":["Indulis","Ivo","Iva"],
+      "01-02":["Indra","Ineta","Ingrīda"],
+      "01-03":["Rasma","Rasma"],
+      "01-04":["Spodra","Ilze","Ilva"],
+      "01-05":["Zigurds","Sigurds"],
+      "01-06":["Antons","Antis"],
+      "01-07":["Raita","Raitis"],
+      "01-08":["Gunita","Loreta"],
+      "01-09":["Kaspars","Austra"],
+      "01-10":["Daiga","Dinija"],
+      "01-11":["Gatis","Gvido"],
+      "01-12":["Reinis","Renārs"],
+      "01-13":["Silvija","Silva"],
+      "01-14":["Roberts","Rojs"],
+      "01-15":["Feliks","Fēlikss"],
+      "01-16":["Laimonis","Laimdota"],
+      "01-17":["Tenis","Dravis"],
+      "01-18":["Anta","Antonija"],
+      "01-19":["Andulis","Alnis"],
+      "01-20":["Agnese","Agita"],
+      "01-21":["Inese","Inesis"],
+      "01-22":["Austris","Astrīda"],
+      "01-23":["Zigurds","Ziedonis"],
+      "01-24":["Vladislavs","Vladimirs"],
+      "01-25":["Sigita","Sigurds"],
+      "01-26":["Agnis","Agnese"],
+      "01-27":["Ilze","Ilvija"],
+      "01-28":["Karlis","Karīna"],
+      "01-29":["Valentīna","Valentīns"],
+      "01-30":["Līga","Lidija"],
+      "01-31":["Krišjānis","Kristīne"],
+      "02-01":["Brigita","Paula"],
+      "02-02":["Aija","Aivars"],
+      "02-03":["Harijs","Helēna"],
+      "02-04":["Dzintra","Dzintars"],
+      "02-05":["Agita","Agrita"],
+      "02-06":["Dace","Dārta"],
+      "02-07":["Bērtulis","Bērtulfs"],
+      "02-08":["Sarmīte","Sandra"],
+      "02-09":["Liene","Līna"],
+      "02-10":["Elita","Elīna"],
+      "02-11":["Vladislavs","Vladimirs"],
+      "02-12":["Marta","Marika"],
+      "02-13":["Katrīna","Karla"],
+      "02-14":["Valentīna","Valentīns"],
+      "02-15":["Alīda","Alīse"],
+      "02-16":["Dainis","Dana"],
+      "02-17":["Inga","Inguna"],
+      "02-18":["Zane","Zinaīda"],
+      "02-19":["Baiba","Barbara"],
+      "02-20":["Evita","Evelīna"],
+      "02-21":["Otīlija","Otis"],
+      "02-22":["Lāsma","Lāsmo"],
+      "02-23":["Harijs","Helēna"],
+      "02-24":["Matīss","Mārtiņš"],
+      "02-25":["Alvīne","Alvils"],
+      "02-26":["Justīne","Justs"],
+      "02-27":["Edvīns","Edīte"],
+      "02-28":["Zigmārs","Žanis"],
+      "02-29":["Namejs","Nauris"],
+      "03-01":["Alīna","Alīse"],
+      "03-02":["Agnese","Agnija"],
+      "03-03":["Mārcis","Māris"],
+      "03-04":["Ivars","Ivo"],
+      "03-05":["Aija","Aivars"],
+      "03-06":["Dzintra","Dzintars"],
+      "03-07":["Ilona","Ilmārs"],
+      "03-08":["Laura","Larisa"],
+      "03-09":["Māris","Maruta"],
+      "03-10":["Leonīds","Leonards"],
+      "03-11":["Pēteris","Pāvils"],
+      "03-12":["Gvido","Gustavs"],
+      "03-13":["Dita","Dāvis"],
+      "03-14":["Valters","Valdis"],
+      "03-15":["Elza","Elīza"],
+      "03-16":["Marta","Maruta"],
+      "03-17":["Gunta","Gunārs"],
+      "03-18":["Henrijs","Helēna"],
+      "03-19":["Baiba","Berta"],
+      "03-20":["Evita","Evalds"],
+      "03-21":["Lāsma","Lāsmo"],
+      "03-22":["Rita","Ritvars"],
+      "03-23":["Otīlija","Otis"],
+      "03-24":["Sarmīte","Sandra"],
+      "03-25":["Marija","Māris"],
+      "03-26":["Zane","Zigmārs"],
+      "03-27":["Ginta","Gints"],
+      "03-28":["Edgars","Edīte"],
+      "03-29":["Aivars","Aija"],
+      "03-30":["Ilze","Ilvija"],
+      "03-31":["Kristīne","Krišjānis"],
+      "09-04":["Ričards","Rihards"],
+      "09-05":["Klaudijs","Klāvs"],
+      "09-06":["Lienīte","Līna"],
+      "09-07":["Regīna"]
+    };
+
+    const elNameday=document.getElementById('nameday');
+    function updateNameday(){
+      const now=new Date();
+      const mm=String(now.getMonth()+1).padStart(2,"0");
+      const dd=String(now.getDate()).padStart(2,"0");
+      const key=`${mm}-${dd}`;
+      if(namedays[key]) elNameday.textContent=namedays[key].join(", ");
+      else elNameday.textContent="—";
+    }
+    updateNameday();
+
+    // pulkstenis
+    const elTime=document.getElementById("time");
+    function updateTime(){
+      const now=new Date();
+      elTime.textContent="Laiks: "+now.toLocaleTimeString("lv-LV",{hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    }
+    setInterval(updateTime,1000);
+    updateTime();
+
+    // šeit vari pievienot savu grafika skriptu (stundu saraksts, progresi utt.)
+  </script>
+</body>
+</html>
