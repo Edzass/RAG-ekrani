@@ -11,38 +11,38 @@ atbilde = "j"
 
 
 
-def sakums(a, b, c):
-    a = b[random.randint(0, len(b)-1)]
-    for x in a:
-        c.append("_")
-    return a , b, c
+def sakums(meklejamais_vards, vardu_saraksts, varda_stavoklis):
+    meklejamais_vards = vardu_saraksts[random.randint(0, len(vardu_saraksts)-1)]
+    for x in meklejamais_vards:
+        varda_stavoklis.append("_")
+    return vardu_saraksts, meklejamais_vards, varda_stavoklis
 
 
-def spele(a, b, c, d):
-    while a > 0:
-        print(" ".join(b))
+def spele(dzivibu_skaits, varda_stavoklis, meklejamais_vards, meklētie_burti):
+    while dzivibu_skaits > 0:
+        print(" ".join(varda_stavoklis))
         ievade = str(input("burts")).lower()
-        if ievade in c:
+        if ievade in meklejamais_vards:
             print("PAREIZI")
-            for i in range (len(c)):
-                if ievade == c[i]:
-                    b[i]=ievade
-            if c == "".join(b):
+            for i in range (len(meklejamais_vards)):
+                if ievade == meklejamais_vards[i]:
+                    varda_stavoklis[i]=ievade
+            if meklejamais_vards == "".join(varda_stavoklis):
                 print("Uzvara!!!!")
                 break
                         
         else:
-            if ievade in d:
+            if ievade in meklētie_burti:
                 print("Jau meklēji.")
             else:
-                a -=1
+                dzivibu_skaits -=1
                 meklētie_burti.append(ievade)
         print(ievade)
-        print("Dzivibu skaits:", a)
-        print("Dzivibu skaits:", c)
+        print("Dzivibu skaits:", dzivibu_skaits)
+        print("Dzivibu skaits:", meklētie_burti)
         print("")
 
-    return a, b, c, d
+    return dzivibu_skaits, meklejamais_vards, varda_stavoklis, meklētie_burti
 
 print(meklejamais_vards)
 print(varda_stavoklis)
