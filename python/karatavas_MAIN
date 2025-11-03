@@ -1,0 +1,128 @@
+import random
+
+vardu_saraksts = ["abols", "banans", "kirsis"]
+atbilde = "j"
+
+dzivibu_skaits = 6
+meklejamais_vards = ""
+varda_stavoklis = []
+meklētie_burti = []
+karatavas_attels = []
+
+def attels():
+    global dzivibu_skaits
+    if dzivibu_skaits == 5:
+        print("""
+        +---+
+        |   |
+            |
+            |
+            |
+            |
+        =========
+        """)
+    elif dzivibu_skaits == 4:
+        print("""
+        +---+
+        |   |
+        O   |
+            |
+            |
+            |
+        =========
+        """)
+    elif dzivibu_skaits == 3:
+        print("""
+        +---+
+        |   |
+        O   |
+        |   |
+            |
+            |
+        =========
+        """)
+    elif dzivibu_skaits == 2:
+        print("""
+        +---+
+        |   |
+        O   |
+       /|   |
+            |
+            |
+        =========
+        """)
+    elif dzivibu_skaits == 1:
+        print("""
+        +---+
+        |   |
+        O   |
+       /|   |
+       /    |
+            |
+        =========
+        """)
+    elif dzivibu_skaits == 0:
+        print("""
+        +---+
+        |   |
+        O   |
+       /|\  |
+       / \  |
+            |
+        =========
+        """)
+    return
+
+def vertibas():
+    global dzivibu_skaits, varda_stavoklis, meklētie_burti, meklejamais_vards
+    dzivibu_skaits = 6
+    meklejamais_vards = ""
+    varda_stavoklis = []
+    meklētie_burti = []
+    return
+
+def sakums():
+    global meklejamais_vards, varda_stavoklis, meklētie_burti, dzivibu_skaits
+    meklejamais_vards = vardu_saraksts[random.randint(0, len(vardu_saraksts)-1)]
+    for x in meklejamais_vards:
+        varda_stavoklis.append("_")
+    return
+
+def spele():
+    global dzivibu_skaits, varda_stavoklis, meklētie_burti, meklejamais_vards
+    while dzivibu_skaits > 0:
+            print(" ".join(varda_stavoklis))
+            ievade = str(input("Ievades burts: ")).lower()
+
+            if len(ievade) != 1:
+                print("Lūdzu ievadi tikai vienu burtu!")
+                
+
+            if ievade in meklejamais_vards and ievade not in varda_stavoklis:
+                print("PAREIZI")
+                for i in range (len(meklejamais_vards)):
+                    if ievade == meklejamais_vards[i]:
+                        varda_stavoklis[i]=ievade
+                if meklejamais_vards == "".join(varda_stavoklis):
+                    print("Uzvara!!!!")
+                    print("Meklējamais vārds bija:", meklejamais_vards.upper())
+                    break
+                            
+            elif ievade in meklētie_burti or ievade in varda_stavoklis:
+                print("Jau meklēji burutu:", ievade)
+            else:
+                dzivibu_skaits -=1
+                meklētie_burti.append(ievade)
+                attels()
+            
+            print("Dzivibu skaits:", dzivibu_skaits)
+            print("Nederīgie burti:", meklētie_burti)
+            print("")
+
+
+while atbilde == "j":
+    sakums()
+    spele()
+    atbilde = input("Vai vēlies atkārtot? (j/n)")
+    vertibas()
+
