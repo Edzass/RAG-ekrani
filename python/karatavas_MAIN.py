@@ -1,6 +1,6 @@
 import random
 
-vardu_saraksts = ["abols", "banans", "kirsis"]
+vardu_saraksts = ["ābols", "banāns", "ķirsis", "melone", "apelsīns", "zemene", "vīnoga"]
 atbilde = "j"
 
 dzivibu_skaits = 6
@@ -9,6 +9,7 @@ varda_stavoklis = []
 meklētie_burti = []
 karatavas_attels = []
 
+# Funkcija, kas attēlo karātavas skici atbilstoši atlikušo dzīvību skaitam
 def attels():
     global dzivibu_skaits
     if dzivibu_skaits == 5:
@@ -73,6 +74,7 @@ def attels():
         """)
     return
 
+# Funkcija, kas atiestata spēles mainīgos, ja spēle tiek atkārtota
 def vertibas():
     global dzivibu_skaits, varda_stavoklis, meklētie_burti, meklejamais_vards
     dzivibu_skaits = 6
@@ -81,6 +83,7 @@ def vertibas():
     meklētie_burti = []
     return
 
+# Funkcija, kas uzskāk spēli, izvēloties nejaušu vārdu no saraksta un sagatavo spēles mainīgos
 def sakums():
     global meklejamais_vards, varda_stavoklis, meklētie_burti, dzivibu_skaits
     meklejamais_vards = vardu_saraksts[random.randint(0, len(vardu_saraksts)-1)]
@@ -88,6 +91,7 @@ def sakums():
         varda_stavoklis.append("_")
     return
 
+# Galvenā spēles funkcija, kas satur ciklu, kurā notiek spēles gaita
 def spele():
     global dzivibu_skaits, varda_stavoklis, meklētie_burti, meklejamais_vards
     while dzivibu_skaits > 0:
@@ -120,9 +124,10 @@ def spele():
             print("")
 
 
+# Programmas cilks, kas izpilda funkcijas, lai spēle funkcionētu un būtu iespēja to atkārtot
 while atbilde == "j":
     sakums()
     spele()
-    atbilde = input("Vai vēlies atkārtot? (j/n)")
+    atbilde = input("Vai vēlies atkārtot spēli? (j/n)")
     vertibas()
 
