@@ -97,7 +97,10 @@ def sakums():
         varda_stavoklis.append("_")
     return
 
-# Galvenā spēles funkcija, kas satur ciklu, kurā notiek spēles gaita
+
+"""
+Galvenā spēles funkcija, kas satur ciklu, kurā notiek spēles gaita.
+"""
 def spele():
     global dzivibu_skaits, varda_stavoklis, meklētie_burti, meklejamais_vards
     while dzivibu_skaits > 0:
@@ -106,6 +109,7 @@ def spele():
 
             if len(ievade) != 1:
                 print("Lūdzu ievadi tikai vienu burtu!")
+                continue
                 
 
             if ievade in meklejamais_vards and ievade not in varda_stavoklis:
@@ -135,7 +139,7 @@ def spele():
 while atbilde == "j":
     sakums()
     spele()
-    atbilde = input("Vai vēlies atkārtot spēli? (j/n)")
+    atbilde = input("Vai vēlies atkārtot spēli? (j/n)").lower()
     # notīra ekrānu pēc spēles beigām
     os.system('cls')
     
