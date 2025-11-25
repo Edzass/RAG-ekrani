@@ -100,6 +100,9 @@ def sakums():
 
 """
 Galvenā spēles funkcija, kas satur ciklu, kurā notiek spēles gaita.
+Sākumā tiek parādīts vārda stāvoklis ar paslēptajiem burtiem, pēc tam lietotājs tiek aicināts ievadīt burtu.
+Ja ievadītais burts ir pareizs un atrodas meklējamajā vārdā, tiek atjaunināts vārda stāvoklis.
+Ja burts jau ir meklēts, tiek paziņots lietotājam. Ja burts nav pareizs, tiek samazināts dzīvību skaits un pievienots nederīgo burtu sarakstam.
 """
 def spele():
     global dzivibu_skaits, varda_stavoklis, meklētie_burti, meklejamais_vards
