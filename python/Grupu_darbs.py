@@ -38,11 +38,7 @@ class GifPlayerApp:
                 "gif": "gifs/choice1.gif",
                 "choices": ["start", "choice2"]
             },
-            "choice2": {
-                "text": "You chose path 2. What next?",
-                "gif": "gifs/choice2.gif",
-                "choices": ["start", "choice1"]
-            }
+            
         }
 
         self.current_node = "start"
