@@ -3,6 +3,7 @@ from PIL import Image, ImageTk, ImageSequence
 import os
 import time
 from time import sleep
+import subprocess
 
 
 STORY = {
@@ -82,8 +83,12 @@ STORY = {
     },
 }
 
+def restart_computer():
+    subprocess.call(["shutdown", "-r", "-t", "0"])
+    
 
 class AdventureApp:
+
     def __init__(self, root):
         self.root = root
         self.root.title("Choose Your Own Adventure")
@@ -143,7 +148,7 @@ class AdventureApp:
     def show_scene(self, scene_key: str):
         scene = STORY[scene_key]
 
-        # Load and display image
+        # Attēlo attēlu vai gifu
         img_path = scene["image"]
         if not os.path.exists(img_path):
             raise FileNotFoundError(f"Missing image file: {img_path}")
@@ -165,7 +170,7 @@ class AdventureApp:
         for i, char in enumerate(full_text):
             self.root.after(i * char_delay, lambda c=char, idx=i: self._update_text(c, idx, full_text))
 
-        # Schedule showing choices after the typing animation completes
+        # Parāda izvēles iespējas pēc teksta animācijas pabeigšanas
         total_time = len(full_text) * char_delay + 50
         if self._choice_after_id:
             try:
@@ -185,7 +190,6 @@ class AdventureApp:
         choices = self.pending_choices or []
         self.pending_choices = None
 
-        # Clear any leftover widgets (safety)
         for widget in self.buttons_frame.winfo_children():
             widget.destroy()
 
@@ -255,4 +259,10 @@ if __name__ == "__main__":
     
     app = AdventureApp(root)
     root.mainloop()
+
+    choice = "restart_game"  # This should be set based on user interaction
+if choice == "restart_game":
+    restart_computer()
+else:
+    # Normal game flow
 
