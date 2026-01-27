@@ -1,11 +1,30 @@
 import tkinter as tk
 from PIL import Image, ImageTk, ImageSequence
 import os
-import time
-from time import sleep
-import subprocess
 
+# ============= SCENE FUNCTIONS =============
+# Add custom functions for each scene here
+def func_start():
+    """Function runs when entering 'start' scene"""
+    pass
 
+def func_celties():
+    """Function runs when entering 'celties' scene"""
+    pass
+
+def func_end():
+    """Function runs when entering 'end' scene"""
+    pass
+
+# Add more functions as needed...
+
+SCENE_FUNCTIONS = {
+    "start": func_start,
+    "celties": func_celties,
+    "end": func_end,
+}
+
+# ============= STORY DATA =============
 STORY = {
     "start": {
         "image": "images/start.png",
@@ -83,10 +102,6 @@ STORY = {
     },
 }
 
-def restart_computer():
-    subprocess.call(["shutdown", "-r", "-t", "0"])
-    
-
 class AdventureApp:
 
     def __init__(self, root):
@@ -148,29 +163,35 @@ class AdventureApp:
     def show_scene(self, scene_key: str):
         scene = STORY[scene_key]
 
-        # Attēlo attēlu vai gifu
+        # Load image
         img_path = scene["image"]
         if not os.path.exists(img_path):
             raise FileNotFoundError(f"Missing image file: {img_path}")
 
         self.load_image(img_path)
 
-        # Animate text display (typewriter effect)
-        # Clear old buttons immediately so they aren't clickable during animation
+        # Clear old buttons
         for widget in self.buttons_frame.winfo_children():
             widget.destroy()
-        # Store choices and start animation; buttons will be shown after animation
+        
+        # Execute scene function if it exists
+        if scene_key in SCENE_FUNCTIONS:
+            try:
+                SCENE_FUNCTIONS[scene_key]()
+            except Exception as e:
+                print(f"Error in scene function: {e}")
+        
+        # Animate text
         self.pending_choices = scene["choices"]
         self.animate_text(scene["text"])
 
     def animate_text(self, full_text: str):
-        """Animates text display character by character."""
+        """Animate text character by character"""
         self.text_label.config(text="")
         char_delay = 50
         for i, char in enumerate(full_text):
             self.root.after(i * char_delay, lambda c=char, idx=i: self._update_text(c, idx, full_text))
 
-        # Parāda izvēles iespējas pēc teksta animācijas pabeigšanas
         total_time = len(full_text) * char_delay + 50
         if self._choice_after_id:
             try:
@@ -180,12 +201,12 @@ class AdventureApp:
         self._choice_after_id = self.root.after(total_time, self.show_choices)
 
     def _update_text(self, char: str, idx: int, full_text: str):
-        """Helper to update text incrementally."""
+        """Update text incrementally"""
         current_text = full_text[:idx + 1]
         self.text_label.config(text=current_text)
 
     def show_choices(self):
-        """Create and display choice buttons after text animation finishes."""
+        """Display choice buttons"""
         self._choice_after_id = None
         choices = self.pending_choices or []
         self.pending_choices = None
@@ -196,42 +217,27 @@ class AdventureApp:
         btn_wrap = max(150, self.root.winfo_width() - 100)
         for (label, next_key) in choices:
             btn = tk.Button(
-                self.buttons_frame,
-                text=label,
-                wraplength=btn_wrap,
-                justify="center",
-                padx=15,
-                pady=8,
-                font=("Arial", 11, "bold"),
-                bg="#16213e",
-                fg="#00d4ff",
-                activebackground="#0f3460",
-                activeforeground="#00d4ff",
-                relief="raised",
-                bd=2,
-                cursor="hand2",
-                command=lambda nk=next_key: self.show_scene(nk),
+                self.buttons_frame, text=label, wraplength=btn_wrap, justify="center",
+                padx=15, pady=8, font=("Arial", 11, "bold"), bg="#16213e", fg="#00d4ff",
+                activebackground="#0f3460", activeforeground="#00d4ff", relief="raised", bd=2,
+                cursor="hand2", command=lambda nk=next_key: self.show_scene(nk)
             )
             btn.pack(pady=6, padx=5)
 
     def load_image(self, path):
-        # Stop any ongoing animation
+        """Load and display image (supports GIF animation)"""
         self.animating = False
         self.frames.clear()
         self.frame_index = 0
 
         img = Image.open(path)
-
-        # Optional: scale down large images to fit nicely (keeps aspect ratio)
         max_w, max_h = 900, 500
         img.thumbnail((max_w, max_h))
 
         if path.lower().endswith('.gif') and img.is_animated:
-            # Load all frames for animation
             self.delay = img.info.get("duration", 100)
             for frame in ImageSequence.Iterator(img):
-                frame = frame.copy()  # thumbnail already applied to img, but need to resize each frame?
-                # Actually, since thumbnail modifies img in place, but for frames, better to resize each
+                frame = frame.copy()
                 frame.thumbnail((max_w, max_h))
                 self.frames.append(ImageTk.PhotoImage(frame))
             self.animating = True
@@ -241,6 +247,7 @@ class AdventureApp:
             self.image_label.config(image=self._photo)
 
     def animate(self):
+        """Animate GIF frames"""
         if self.animating and self.frames:
             self.image_label.config(image=self.frames[self.frame_index])
             self.frame_index = (self.frame_index + 1) % len(self.frames)
@@ -248,21 +255,10 @@ class AdventureApp:
             
 if __name__ == "__main__":
     root = tk.Tk()
-    
-    # Set window size to half width, 75% height
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     window_width = screen_width // 2
     window_height = int(screen_height * 0.75)
-    
     root.geometry(f"{window_width}x{window_height}+0+0")
-    
     app = AdventureApp(root)
     root.mainloop()
-
-    choice = "restart_game"  # This should be set based on user interaction
-if choice == "restart_game":
-    restart_computer()
-else:
-    # Normal game flow
-
