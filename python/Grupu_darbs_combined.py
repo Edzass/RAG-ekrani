@@ -5,7 +5,7 @@ import random
 import subprocess
 
 # ================= STORY =================
-
+# Pēc noklusējuma, ja teksts ir pēdiņās, tas parādās, bet ar laiku pazūd, izmantojot "append" teksts saglabājas ekrānā redzams ilgku laiku. Nepieciešamības gadījumā izmantoju "Clear" funkciju, lai notīrītu ekrānu.
 STORY = {
     "start": {
         "image": "images/start.png",
@@ -529,10 +529,9 @@ class AdventureApp:
 
             elif "wait" in item:
                 # Automātisks aprēķins: teksta garums × char_delay + base_wait
-                # Ja wait ir skaitlis, izmanto to, ja nav - aprēķini
                 wait_time = item["wait"]
                 if isinstance(wait_time, str) and wait_time == "auto":
-                    # Nākotnei, ja vajag auto aprēķinu
+                    
                     wait_time = len(self.text_label.cget("text")) * self.char_delay + self.base_wait
                 self.root.after(
                     wait_time,
@@ -542,11 +541,11 @@ class AdventureApp:
             elif item.get("clear"):
                 self.text_label.config(text="")
                 self.run_script(script, index + 1)
-
+                # Spēles beigu funkcija
             elif item.get("end_game"):
                 self.pending_choices = [("Doties uz sākumu", "start")]
                 self.show_choices()
-            
+                # Funkcija, lai izslēgtu datoru
             elif item.get("shutdown"):
                 delay = item.get("shutdown", 5)
                 subprocess.call(["shutdown", "-s", "-t", str(delay)])
@@ -635,6 +634,6 @@ class AdventureApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.geometry("900x700")
+    root.geometry("1000x850")
     AdventureApp(root)
     root.mainloop()
