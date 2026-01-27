@@ -10,15 +10,14 @@ STORY = {
     "start": {
         "image": "images/start.png",
         "script": [
-            {"clear": True},
-            "Tu uzmosties uz nezināmas planētas.\n",
-            {"append": "Tev pīkst skābeļa maska, kas liecina par skābekļa rezervju beigušanos.\n"},
-            {"append": "(Atlikušas 30min)\n"},
-            {"append": "Tava rīcība:"},
+            "Tu pamosties uz nezināmas planētas.\n",
+            {"append": "Tu dzirdi nesaprotamu pīkstēšanu.\n"},
+            {"append": "(Atlikušas 30min no skābekļa)\n"},
+            {"append": "Ko darīt?"},
         ],
         "choices": [
             ("1. Celties un meklēt jaunu masku.", "celties"),
-            ("2. Ignorēt pīkstienu un turpināt gulēt.", "end"),
+            ("2. Ignorēt pīkstēšanu un turpināt gulēt.", "end"),
         ],
     },
 
@@ -27,12 +26,12 @@ STORY = {
         "script": [
             {"clear": True},
             "Tu piecelies un dodies meklēt jaunu skābekļa masku.\n",
-            {"append": "Tu redzi tālumā kosmosa kuģi, kas dūmo, iespējams, tur ir vēl kāds izdzīvojušais.\n"},
-            {"append": "Tava rīcība:"},
+            {"append": "Tu redzi tālumā savu kosmosa kuģi kas dūmo, iespējams, tur ir vēl kāds izdzīvojušais.\n"},
+            {"append": "Ko darīsi?"},
         ],
         "choices": [
-            ("1. Doties uz kosmosa kuģi (15min).", "kosmosa kuģis1"),
-            ("2. Doties meklēt palīdzību uz pilsētu – vadoties pēc tālumā mirgojošām gaismiņām (25min).", "pilseta1"),
+            ("1. Dosies uz kosmosa kuģi (15min).", "kosmosa kuģis1"),
+            ("2. Dosies meklēt palīdzību uz pilsētu – vadoties pēc tālumā mirgojošām gaismiņām (25min).", "pilseta1"),
         ],
     },
 
@@ -42,11 +41,13 @@ STORY = {
             {"clear": True},
             "Tu uztraukumā skraidi pa pilsētu, vadoties pēc tālumā mirgojošām gaismiņām.\n",
             {"append": "Tev ir atlikušas 5 minūtes ar skābekļa rezervēm.\n"},
-            {"append": "Tu ieraugi veikalu ar skābeļa maskām, tomēr Tev nav resursu, lai to iegādātos.\n"},
-            {"append": "Tevi izmet no veikala.\n"},
-            {"append": "Tu ieraugi kādu vecu vīru, viņš saprot tavu situāciju.\n"},
-            {"append": "Tev tiek piedāvāta izvēle starp 2 skābekļa baloniņiem.\n"},
-            {"append": "Tava rīcība:"},
+            {"append": "Tu ieraugi veikalu, kur pārdod skābekļa maskas, tomēr Tev nav resursu, lai to iegādātos.\n"},
+            {"append": "Tāpēc tevi izmet no veikala.\n"},
+            {"wait": 3000},
+            {"clear": True},
+            {"append": "Tu ieraugi kādu vecu vīru, viņš izdzird situāciju.\n"},
+            {"append": "Tev piedāvā izvēle starp 2 skābekļa baloniņiem.\n"},
+            {"append": "Ko izvēlēsies?:"},
         ],
         "choices": [
             ("1. Skābekļa baloniņš, kas ir iepriekš izmantots un pārbaudīts. (+3h)", "parbaudīts baloniņs"),
@@ -62,6 +63,8 @@ STORY = {
             {"clear": True},
             "Baloniņš bija pilns ar indi.\n",
             {"wait": 2000},
+            "Tu nomirsti.\n",
+            {"wait": 2000},
             {"end_game": True},
             
         ],
@@ -75,8 +78,7 @@ STORY = {
             {"wait": 1000},
         ],
         "choices": [
-            ("Pateikties par dāsno žestu un doties tālāk", "parbaudīts baloniņs1.1"),
-            ("Uzdot jautājumu vīriņam?", "parbaudīts baloniņs2"),
+            ("Pateikties par dāsno žestu un doties tālāk, un uzdot jautājumu vīriņam.", "parbaudīts baloniņs2"),
         ],
     },
 
@@ -97,11 +99,12 @@ STORY = {
         "image": "images/forest.gif",
         "script": [
             {"clear": True},
-            "Tu uzzini atbildi.\n",
-            {"wait": 1000},
-            {"end_game": True},
+            "Tu uzzini atbildi, tas tevi sadusmo\n",
+            {"wait": 2000},
+            
         ],
         "choices": [
+            ("Nosist vīriņu un iegūt resursus.", "parbaudīts baloniņs3.2"),
         ],
     },
         "parbaudīts baloniņs3": {
@@ -131,7 +134,7 @@ STORY = {
             "Piebilde no vīriņa - tev būs nepieciešama nauda.",
             {"wait": 1000},
             {"clear": True},
-            "Vīriņam aizejot : tu dzirdi viņa kabatās skanam nauda monētas.",
+            "Vīriņam aizejot : tu dzirdi viņa kabatās skanam naudas monētas.",
             {"wait": 1000},
             
         ],
@@ -196,8 +199,8 @@ STORY = {
             {"append": "Tava rīcība:"},
         ],
         "choices": [
-            ("1. Pārbaudīt komandas biedra veselības stāvokli.", "komandas biedrs"),
-            ("2. Pārbaudīt kosmosa kuģa kontrolpaneli ar pēdējiem video ierakstiem.", "kosmosa kuģis2"),
+            ("1. Pārbaudīt komandas biedra dzīvības stāvokli.", "komandas biedrs"),
+            ("2. Pārbaudīt kosmosa kuģa kontrolpaneli ar notikušā video ierakstiem.", "kosmosa kuģis2"),
         ],
     },
 
@@ -205,17 +208,17 @@ STORY = {
         "image": "images/forest.gif",
         "script": [
             {"clear": True},
-            "Tu secini, ka viņš ir miris.\n",
+            "Tu secini, ka komandas biedrs ir jau miris.\n",
             {"append": "Tomēr uz viņa atrodas soma – iekšā ir skābeļa baloniņš un dažādi resursi.\n"},
             {"append": "Tu atjauno savas skābeļa rezerves.\n"},
-            {"append": "Tu dzirdi, kā kosmosa kuģa vadības panelis uzsprāgst.\n"},
+            {"append": "Atjaunojot skābekļa rezerves tu dzirdi, kā kosmosa kuģa vadības panelis uzsprāgst.\n"},
             {"wait": 1500},
             {"clear": True},
-            {"append": "Tava rīcība:"},
+            {"append": "Ko darīsi?"},
         ],
         "choices": [
-            ("Pieņemt notikošo un doties tālāk", "komandas biedrs2"),
-            ("Cieņpilni aprakt mirušo komanas biedru", "start"),
+            ("Pieņemt notikošo un doties tālāk izpētīt apkārtni", "komandas biedrs2"),
+            ("Cieņpilni aprakt mirušo komanas biedru. (+10min)", "komandas biedrs2"),
         ],
     },
         "komandas biedrs2": {
@@ -225,10 +228,10 @@ STORY = {
             "Tu atceries, ka uz kuģa tev bija soma, kurā bija viss nepieciešamais, lai salabotu pilnīgi visu uz kosmusa kuģa, pat kontrolpaneli.\n",
             {"wait": 2000},
             {"clear": True},
-            {"append": "Tu secini, ka somai ir jābūt tuvumā, tāpēc dodies dziļāk mežā, meklē somu.\n"},
+            {"append": "Tu secini, ka somai ir jābūt tuvumā, tāpēc dodies dziļāk mežā, meklēt somu.\n"},
             {"wait": 2000},
             {"clear": True},
-            {"append": "Ir pagājusi pusstunda. \n"},
+            {"append": "Tu pavadi stundu meklējot somu. (Palikušas 50min) \n"},
             {"random": True}
         ],
         "choices": [
@@ -241,10 +244,13 @@ STORY = {
         "script": [
             {"clear": True},
             "Meklējot somu, tu sadzirdi dīvainas skaņās no mugurpuses.\n",
-            {"wait": 2000},
+            {"wait": 2500},
             {"clear": True},
-            {"append": "Nezināms meža dzīvnieks tev uzbrūk un saplosa gabalos.\n"},
+            {"append": "Šausminošs meža dzīvnieks tev uzbrūk un saplosa gabalos.\n"},
             {"clear": True},
+            {"wait": 200},
+            {"append": "Tu nomiri"},
+            {"end_game": True},
             {"wait": 200},
             {"append": "Spēle beigusies!"},
             {"end_game": True},
@@ -260,22 +266,22 @@ STORY = {
             {"append": "Tu dodies uz kosmosa kuģi, lai salabotu kontrolpaneli.\n"},
             {"clear": True},
             {"wait": 2000},
-            {"append": "Nonākot atpakaļ kuģa avārijas vietā, tu pārskati somu un ieraugi, ka tev ir pietiekami daudz gaisa baloniņi, lai spētu salabot kosmusa kuģi un ierocis, lai medītu meža dzīvniekus, no tiem pārtiktu."},
-            {"append": "Tu pavadi nākamās 6-7 dienas labojot kosmusa kuģi, kontrolpaneli un pārtikot no meža dzīvniekiem.\n"},
+            {"append": "Nonākot atpakaļ kuģa avārijas vietā, tu pārskati somu un ieraugi, ka tev ir pietiekami daudz gaisa baloniņi, lai spētu salabot kosmusa kuģi un ierocis, lai medītu meža dzīvniekus un no tiem pārtiktu."},
+            {"append": "Tu pavadi nākamās 6-7 dienas labojot kosmusa kuģi, kontrolpaneli un pārtiekot no meža dzīvniekiem.\n"},
             {"clear": True},
             {"wait": 2000},
             {"append": "Pēc 6 dienām kuģis ir pieņemamā stāvoklī, un panelis ir salabots.\n"},
             {"clear": True},
             {"wait": 1500},
-            {"append": "Ielogojoties panelī tu atrodi informāciju par planētu, kur tu esi. Tu noskaidro, ka ir tornis, kur atrodas teleportēšanās iekārta, caur kuru tu vari tikt mājās.\n"},
+            {"append": "Ielogojoties panelī tu atrodi informāciju par planētu, kur tu esi un tu noskaidro, ka, lai tiktu atpakaļ mājās ir jādodas uz tornis, kur atrodas teleportēšanās iekārta, caur kuru tu vari tikt mājās.\n"},
             {"clear": True},
             {"wait": 1500},
-            {"append": " Tava rīcība:\n"},
+            {"append": "Ko darīsi?"},
 
         ],
         "choices": [
             ("Intereses pēc tu noskaidro, kas nogāja greizi ar kuģi un atrodi atbildes uz saviem jautājumiem.", "komandas biedrs3.1"),
-            ("Saprotot, ka tu vari tikt mājās, tu uzsāc lidojumu uz torni.", "komandas biedrs4"),
+            ("Saprotot, ka tu vari tikt mājās, tu nekavējoties uzsāc lidojumu uz torni.", "komandas biedrs4"),
         ],
     },
         "komandas biedrs3.1": {
@@ -336,9 +342,10 @@ STORY = {
             {"append": "Dzinējs eksplodē, kosmosa kuģis avarē.\n"},
             {"clear": True},
             {"wait": 1000},
-            {"append": "Spēle beigusies!"},
-            {"wait": 1000},
+            {"append": "Tu nomiri."},
+            {"wait": 200},
             {"end_game": True},
+            
         ],
         "choices": [
 
@@ -366,6 +373,9 @@ STORY = {
             "Tu veiksmīgi nokļūsti tornī un teleportējies uz mājām.\n",
             {"clear": True},
             {"wait": 2000},
+            {"append": "Tu izdīvoji!."},
+            {"clear": True},
+            {"wait": 2000},
             {"append": "Apsveicu ar uzvaru!"},
         ],
         "choices": [
@@ -377,8 +387,8 @@ STORY = {
         "image": "images/forest.gif",
         "script": [
             {"clear": True},
-            "Pēc pāris sekundēm tev sāk pīkstēt maska.\n",
-            {"append": "Tava rīcība:"},
+            "Pēc pāris sekundēm tev sāk pīkstēt skābekļamaska.\n",
+            {"append": "Ko darīt?"},
         ],
         "choices": [
             ("1. Skriet laukā no kosmosa kuģa.", "skrien laukā"),
@@ -393,8 +403,8 @@ STORY = {
             "Tev parādās laika atskaite ar gaisa rezervēm – atlikušas dažas sekundes.\n",
             {"wait": 1500},
             {"clear": True},
-            {"append": "Tu atrodi video, kas izskaidro notikušo, tomēr tu nomirsti.\n"},
-            {"wait": 1000},
+            {"append": "Tu atrodi video, kas izskaidro to, ka tavs dvīņu brālis patiesībā bija sabotējis kosmosa kuģi un speciāli bija centies avarēt tieši uz šīs planētas... tomēr tu nomirsti.\n"},
+            {"wait": 1500},
             {"clear": True},
             {"wait": 1500},
             {"append": "Spēle beigusies!"},
@@ -407,13 +417,16 @@ STORY = {
         "image": "images/forest.gif",
         "script": [
             {"clear": True},
-            "Tu ātri mēģini atrast jebkādu skābekļa baloniņu, tomēr tas neizdodas.\n",
+            "Tu ātri mēģini atrast jebkādu skābekļa baloniņu, tomēr tas tev neizdodas.\n",
             {"wait": 1500},
             {"clear": True},
             {"append": "Tu dzirdi, kā vadības panelis tālumā sāk pīkstēt – tā ir laika atskaite.\n"},
             {"wait": 1500},
             {"clear": True},
             {"append": "Liels sprādziens!!!\n"},
+            {"wait": 1000},
+            {"clear": True},
+            {"append": "Tu nomirsti.\n"},
             {"wait": 1000},
             {"clear": True},
             {"append": "Spēle beigusies!"},
@@ -427,7 +440,7 @@ STORY = {
         "script": [
             {"clear": True},
             "Pēc brīža tu sajūti, ka skābekļa rezerves ir beigušās.\n",
-            {"append": "Tu aizrijies.\n"},
+            {"append": "Tu lēnām un sāpīgi nosmoki.\n"},
             {"append": "Spēle beigusies!"},
             {"end_game": True},
         ],
