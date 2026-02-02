@@ -36,7 +36,7 @@ STORY = {
     },
 
     "pilseta1": {
-        "image": "images/forest.gif",
+        "image": "images/pilseta1_izvele.png",
         "script": [
             {"clear": True},
             "Tu uztraukumā skraidi pa pilsētu, vadoties pēc tālumā mirgojošām gaismiņām.\n",
@@ -55,7 +55,7 @@ STORY = {
         ],
     },
     "neparbaudīts baloniņs": {
-        "image": "images/neparbaudīts balonins_inde.png",
+        "image": "images/neparbaudits balonins_inde.png",
         "script": [
             {"clear": True},
             "Tu tiec pie baloniņa, bet vīriņš kaut kur nozūd.\n",
@@ -63,10 +63,10 @@ STORY = {
             {"clear": True},
             "Baloniņš bija pilns ar indi.\n",
             {"wait": 3000},
-            "Tu nomirsti.\n",
-            {"wait": 3500},
+            "Tu nomirsti.",
+            {"wait": 2000},
+            {"lock": True},
             {"end_game": True},
-            
         ],
         "choices": [],
     },
@@ -143,7 +143,7 @@ STORY = {
         ],
     },
             "parbaudīts baloniņs3.2": {
-        "image": "images/forest.gif",
+        "image": "images/parbaudits balonins3.1_nauda.png",
         "script": [
             {"clear": True},
             "Bija liecinieks! Tiek izsaukta policija. \n",
@@ -179,6 +179,7 @@ STORY = {
             {"clear": True},
             "Tu nokļīsti cietumā- mūžīgā ieslodzījumā.",
             {"wait": 3000},
+            {"lock": True},
             {"end_game": True},
 
         ],
@@ -258,9 +259,10 @@ STORY = {
             {"clear": True},
             {"wait": 2500},
             {"append": "Tu nomiri."},
-            {"end_game": True},
             {"wait": 2000},
             {"append": "Spēle beigusies!"},
+            {"wait": 2000},
+            {"lock": True},
             {"end_game": True},
         ],
         "choices": [
@@ -342,6 +344,7 @@ STORY = {
             {"wait": 2000},
             {"append": "Dzinējs eksplodē un tu avarē."},
             {"wait": 2000},
+            {"lock": True},
             {"end_game": True},
             
         ],
@@ -392,6 +395,8 @@ STORY = {
             {"clear": True},
             {"wait": 2500},
             {"append": "Spēle beigusies!"},
+            {"wait": 2000},
+            {"lock": True},
             {"end_game": True},
         ],
         "choices": [],
