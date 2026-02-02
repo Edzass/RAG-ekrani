@@ -5,14 +5,14 @@ import random
 import subprocess
 
 # ================= STORY =================
-# Pēc noklusējuma, ja teksts ir pēdiņās, tas parādās, bet ar laiku pazūd, izmantojot "append" teksts saglabājas ekrānā redzams ilgku laiku. Nepieciešamības gadījumā izmantoju "Clear" funkciju, lai notīrītu ekrānu.
+# Pēc noklusējuma, ja teksts ir pēdiņās, tas parādās, bet ar laiku pazūd, izmantojot "append" teksts saglabājas ekrānā redzams ilgu laiku. Nepieciešamības gadījumā izmantoju "Clear" funkciju, lai notīrītu ekrānu.
 STORY = {
     "start": {
         "image": "images/start.png",
         "script": [
             "Tu pamosties uz nezināmas planētas.\n",
             {"append": "Tu dzirdi nesaprotamu pīkstēšanu.\n"},
-            {"append": "(Atlikušas 30min no skābekļa)\n"},
+            {"append": "(Skābekļa rezerves atlikušas 30min)\n"},
             {"append": "Ko darīt?"},
         ],
         "choices": [
@@ -41,7 +41,7 @@ STORY = {
             {"clear": True},
             "Tu uztraukumā skraidi pa pilsētu, vadoties pēc tālumā mirgojošām gaismiņām.\n",
             {"append": "Tev ir atlikušas 5 minūtes ar skābekļa rezervēm.\n"},
-            {"append": "Tu ieraugi veikalu, kur pārdod skābekļa maskas, tomēr Tev nav resursu, lai to iegādātos.\n"},
+            {"append": "Tu ieraugi veikalu, kur pārdod skābekļa maskas, tomēr tev nav resursu, lai to iegādātos.\n"},
             {"append": "Tāpēc tevi izmet no veikala.\n"},
             {"wait": 4500},
             {"clear": True},
@@ -71,7 +71,7 @@ STORY = {
         "choices": [],
     },
     "parbaudīts baloniņs": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tavas skābekļa rezerves ir atjaunotas!\n",
@@ -83,7 +83,7 @@ STORY = {
     },
 
     "parbaudīts baloniņs2": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Kāds ir tavs jautājums?\n",
@@ -96,7 +96,7 @@ STORY = {
     },
 
     "parbaudīts baloniņs2.1": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu uzzini atbildi, tas tevi sadusmo!\n",
@@ -108,7 +108,7 @@ STORY = {
         ],
     },
         "parbaudīts baloniņs3": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Vīriņš paskaidro - augstākajā tornī ir teleportēšanās iekārta.\n",
@@ -123,16 +123,16 @@ STORY = {
         ],
     },
         "parbaudīts baloniņs3.1": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Kur ir resursu veikals?\n",
             {"wait": 3000},
             {"clear": True},
             "Ielas galā.",
-            {"wait": 1500},
+            {"wait": 2500},
             "Piebilde no vīriņa - tev būs nepieciešama nauda.",
-            {"wait": 1500},
+            {"wait": 2500},
             {"clear": True},
             "Vīriņam aizejot : tu dzirdi viņa kabatās skanam naudas monētas.",
             {"wait": 1500},
@@ -157,7 +157,7 @@ STORY = {
         ],
     },
             "parbaudīts baloniņs4.1": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu izbēdz no policijas. \n",
@@ -171,7 +171,7 @@ STORY = {
         ],
     },
                 "parbaudīts baloniņs4.2": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Policija tevi noķer. \n",
@@ -202,12 +202,12 @@ STORY = {
     },
 
     "komandas biedrs": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu secini, ka komandas biedrs ir jau miris.\n",
-            {"append": "Tomēr uz viņa atrodas soma – iekšā ir skābeļa baloniņš un dažādi resursi.\n"},
-            {"append": "Tu atjauno savas skābeļa rezerves.\n"},
+            {"append": "Tomēr uz viņa atrodas soma – iekšā ir skābekļa baloniņš un dažādi resursi.\n"},
+            {"append": "Tu atjauno savas skābekļa rezerves.\n"},
             {"append": "Atjaunojot skābekļa rezerves tu dzirdi, kā kosmosa kuģa vadības panelis uzsprāgst.\n"},
             {"wait": 2500},
             {"clear": True},
@@ -215,7 +215,7 @@ STORY = {
         ],
         "choices": [
             ("Pieņemt notikošo un doties tālāk izpētīt apkārtni", "komandas biedrs2"),
-            ("Cieņpilni aprakt mirušo komanas biedru. (+10min)", "komandas biedrs2_kaps"),
+            ("Cieņpilni aprakt mirušo komandas biedru. (+10min)", "komandas biedrs2_kaps"),
         ],
     },
     "komandas biedrs2_kaps": {
@@ -230,7 +230,7 @@ STORY = {
         ],
     },
         "komandas biedrs2": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu atceries, ka uz kuģa tev bija soma, kurā bija viss nepieciešamais, lai salabotu pilnīgi visu uz kosmusa kuģa, pat kontrolpaneli.\n",
@@ -269,7 +269,7 @@ STORY = {
         ],
     },
         "komandas biedrs3": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu atrodi somu ar ekipejumu.\n",
@@ -284,7 +284,7 @@ STORY = {
         ],
     },
             "komandas biedrs3.3": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             {"append": "Tu pavadi nākamās 6-7 dienas labojot kosmusa kuģi, kontrolpaneli un pārtiekot no meža dzīvniekiem.\n"},
@@ -317,7 +317,7 @@ STORY = {
         ],
     },
         "komandas biedrs3.1": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu noskaidro, ka tavs dvīņu brālis sabotēja misiju un avarēja uz šīs planētas.\n",
@@ -333,17 +333,17 @@ STORY = {
         ],
     },
         "komandas biedrs3.1.1": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Ceļoties gaisā tu sāc dzirdēt dīvainas skaņas.\n",
             {"clear": True},
-            {"wait": 2000},
+            {"wait": 3000},
             {"append": "Saproti, ka, tomēr nevarēji salabot kuģi.\n"},
             {"clear": True},
-            {"wait": 2000},
+            {"wait": 3000},
             {"append": "Dzinējs eksplodē un tu avarē."},
-            {"wait": 2000},
+            {"wait": 3000},
             {"lock": True},
             {"end_game": True},
             
@@ -353,7 +353,7 @@ STORY = {
         ],
     },
         "komandas biedrs3.1.2": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Sadusmots un atriebības pilns tu izdomā lidot uz pilsētu un meklēt vainīgo.\n",
@@ -374,7 +374,7 @@ STORY = {
         "image": "images/kosmosa kuģis1.png",
         "script": [
             {"clear": True},
-            "Pēc pāris sekundēm tev sāk pīkstēt skābekļamaska.\n",
+            "Pēc pāris sekundēm tev sāk pīkstēt skābekļa maska.\n",
             {"append": "Ko darīt?"},
         ],
         "choices": [
@@ -384,7 +384,7 @@ STORY = {
     },
 
     "kosmosa kuģis3": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tev parādās laika atskaite ar gaisa rezervēm – atlikušas dažas sekundes.\n",
@@ -403,20 +403,20 @@ STORY = {
     },
 
     "skrien laukā": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Tu ātri mēģini atrast jebkādu skābekļa baloniņu, tomēr tas tev neizdodas.\n",
-            {"wait": 2500},
+            {"wait": 3000},
             {"clear": True},
             {"append": "Tu dzirdi, kā vadības panelis tālumā sāk pīkstēt – tā ir laika atskaite.\n"},
-            {"wait": 2500},
+            {"wait": 3000},
             {"clear": True},
             {"append": "Liels sprādziens!!!\n"},
-            {"wait": 1500},
+            {"wait": 200},
             {"clear": True},
             {"append": "Tu nomirsti.\n"},
-            {"wait": 1500},
+            {"wait": 200},
             {"clear": True},
             {"append": "Spēle beigusies!"},
             {"wait": 2000},
@@ -427,12 +427,16 @@ STORY = {
     },
 
     "end": {
-        "image": "images/forest.gif",
+        "image": "images/main.gif",
         "script": [
             {"clear": True},
             "Pēc brīža tu sajūti, ka skābekļa rezerves ir beigušās.\n",
+            {"wait": 2000},
             {"append": "Tu lēnām un sāpīgi nosmoki.\n"},
+            {"wait": 2000},
             {"append": "Spēle beigusies!"},
+            {"wait": 2000},
+            {"lock": True},
             {"end_game": True},
         ],
         "choices": [],
