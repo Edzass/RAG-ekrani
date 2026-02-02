@@ -43,7 +43,7 @@ STORY = {
             {"append": "Tev ir atlikušas 5 minūtes ar skābekļa rezervēm.\n"},
             {"append": "Tu ieraugi veikalu, kur pārdod skābekļa maskas, tomēr Tev nav resursu, lai to iegādātos.\n"},
             {"append": "Tāpēc tevi izmet no veikala.\n"},
-            {"wait": 3000},
+            {"wait": 4500},
             {"clear": True},
             {"append": "Tu ieraugi kādu vecu vīru, viņš izdzird situāciju.\n"},
             {"append": "Tev tiek piedāvāta izvēle starp 2 skābekļa baloniņiem.\n"},
@@ -55,16 +55,16 @@ STORY = {
         ],
     },
     "neparbaudīts baloniņs": {
-        "image": "images/forest.gif",
+        "image": "images/neparbaudīts balonins_inde.png",
         "script": [
             {"clear": True},
             "Tu tiec pie baloniņa, bet vīriņš kaut kur nozūd.\n",
-            {"wait": 2000},
+            {"wait": 3000},
             {"clear": True},
             "Baloniņš bija pilns ar indi.\n",
-            {"wait": 2000},
+            {"wait": 3000},
             "Tu nomirsti.\n",
-            {"wait": 2000},
+            {"wait": 3500},
             {"end_game": True},
             
         ],
@@ -75,7 +75,7 @@ STORY = {
         "script": [
             {"clear": True},
             "Tavas skābekļa rezerves ir atjaunotas!\n",
-            {"wait": 2000},
+            {"wait": 3000},
         ],
         "choices": [
             ("Pateikties par dāsno žestu, doties tālāk, un uzdot jautājumu vīriņam.", "parbaudīts baloniņs2"),
@@ -99,12 +99,12 @@ STORY = {
         "image": "images/forest.gif",
         "script": [
             {"clear": True},
-            "Tu uzzini atbildi, tas tevi sadusmo\n",
+            "Tu uzzini atbildi, tas tevi sadusmo!\n",
             {"wait": 3000},
             
         ],
         "choices": [
-            ("Nosist vīriņu un iegūt resursus.", "parbaudīts baloniņs3.2"),
+            ("Nosist vīriņu un iegūt viņa resursus.", "parbaudīts baloniņs3.2"),
         ],
     },
         "parbaudīts baloniņs3": {
@@ -112,10 +112,10 @@ STORY = {
         "script": [
             {"clear": True},
             "Vīriņš paskaidro - augstākajā tornī ir teleportēšanās iekārta.\n",
-            {"wait": 2500},
+            {"wait": 3500},
             {"clear": True},
             "Tava rīcība:",
-            {"wait": 1000},
+            {"wait": 1500},
         ],
         "choices": [
             ("Uzdot otro jautājumu", "parbaudīts baloniņs3.1"),
@@ -127,15 +127,15 @@ STORY = {
         "script": [
             {"clear": True},
             "Kur ir resursu veikals?\n",
-            {"wait": 2000},
+            {"wait": 3000},
             {"clear": True},
             "Ielas galā.",
-            {"wait": 1000},
+            {"wait": 1500},
             "Piebilde no vīriņa - tev būs nepieciešama nauda.",
-            {"wait": 1000},
+            {"wait": 1500},
             {"clear": True},
             "Vīriņam aizejot : tu dzirdi viņa kabatās skanam naudas monētas.",
-            {"wait": 1000},
+            {"wait": 1500},
             
         ],
         "choices": [
@@ -147,7 +147,7 @@ STORY = {
         "script": [
             {"clear": True},
             "Bija liecinieks! Tiek izsaukta policija. \n",
-            {"wait": 3000},
+            {"wait": 4500},
             {"random": True}
             
         ],
@@ -161,10 +161,10 @@ STORY = {
         "script": [
             {"clear": True},
             "Tu izbēdz no policijas. \n",
-            {"wait": 3000},
+            {"wait": 4500},
             {"clear": True},
             "Ar iegūto naudu tu dodies uz veikalu un nopērc visus instrumentus, kas tev ir nepieciešami, lai salabotu kuģi, kā arī gāzes baloniņus un ieroci.",
-            {"wait": 2500},
+            {"wait": 3500},
         ],
         "choices": [
            ("Dodies apkakaļ uz avarējušo kosmosa kuģi salabot kontrolpaneli.", "komandas biedrs3.3"),
@@ -175,10 +175,10 @@ STORY = {
         "script": [
             {"clear": True},
             "Policija tevi noķer. \n",
-            {"wait": 2000},
+            {"wait": 3000},
             {"clear": True},
             "Tu nokļīsti cietumā- mūžīgā ieslodzījumā.",
-            {"wait": 2000},
+            {"wait": 3000},
             {"end_game": True},
 
         ],
@@ -214,7 +214,18 @@ STORY = {
         ],
         "choices": [
             ("Pieņemt notikošo un doties tālāk izpētīt apkārtni", "komandas biedrs2"),
-            ("Cieņpilni aprakt mirušo komanas biedru. (+10min)", "komandas biedrs2"),
+            ("Cieņpilni aprakt mirušo komanas biedru. (+10min)", "komandas biedrs2_kaps"),
+        ],
+    },
+    "komandas biedrs2_kaps": {
+        "image": "images/komandas biedrs2_kaps.png",
+        "script": [
+            {"clear": True},
+            {"wait": 9000},
+            {"random": True}
+        ],
+        "choices": [
+            ("", "komandas biedrs2.1"),
         ],
     },
         "komandas biedrs2": {
@@ -222,13 +233,13 @@ STORY = {
         "script": [
             {"clear": True},
             "Tu atceries, ka uz kuģa tev bija soma, kurā bija viss nepieciešamais, lai salabotu pilnīgi visu uz kosmusa kuģa, pat kontrolpaneli.\n",
-            {"wait": 3000},
+            {"wait": 4500},
             {"clear": True},
             {"append": "Tu secini, ka somai ir jābūt tuvumā, tāpēc dodies dziļāk mežā meklēt somu.\n"},
-            {"wait": 3000},
+            {"wait": 4500},
             {"clear": True},
             {"append": "Tu pavadi stundu meklējot somu. (Palikušas 50min skābekļa rezerves) \n"},
-            {"wait": 3000},
+            {"wait": 4500},
             {"random": True}
         ],
         "choices": [
@@ -237,7 +248,7 @@ STORY = {
         ],
     },
         "komandas biedrs2.1": {
-        "image": "komandas biedrs2.1.png",
+        "image": "images/komandas biedrs2.1.png",
         "script": [
             {"clear": True},
             "Meklējot somu, tu sadzirdi dīvainas skaņās no mugurpuses.\n",
@@ -276,11 +287,11 @@ STORY = {
             {"clear": True},
             {"append": "Tu pavadi nākamās 6-7 dienas labojot kosmusa kuģi, kontrolpaneli un pārtiekot no meža dzīvniekiem.\n"},
             {"clear": True},
-            {"wait": 3000},
+            {"wait": 4500},
             {"append": "Pēc 6 dienām kuģis ir pieņemamā stāvoklī, un panelis ir salabots.\n"},
             {"append": "Ielogojoties panelī tu atrodi informāciju par planētu, kur tu esi un tu noskaidro, ka, lai tiktu atpakaļ mājās ir jādodas uz tornis, kur atrodas teleportēšanās iekārta, caur kuru tu vari tikt mājās.\n"},
             {"clear": True},
-            {"wait": 3000},
+            {"wait": 4500},
             {"append": "Ko darīsi?"},
 
         ],
@@ -290,14 +301,14 @@ STORY = {
         ],
     },
             "komandas biedrs4": {
-        "image": "images/forest.gif",
+        "image": "images/komandas biedrs4_portals.png",
         "script": [
             {"clear": True},
             "Aizlidojot uz torni, tu nonāc mājās.\n",
             {"clear": True},
-            {"wait": 2000},
+            {"wait": 3000},
             "Apsveicam ar uzvaru!\n",
-            {"wait": 2000},
+            {"wait": 3000},
         ],
         "choices": [
             ("Doties uz sākumu", "start"),
@@ -310,7 +321,7 @@ STORY = {
             "Tu noskaidro, ka tavs dvīņu brālis sabotēja misiju un avarēja uz šīs planētas.\n",
             "Sadusmots un atriebības pilns tu izdomā lidot uz pilsētu un meklēt savu brāli\n",
             {"clear": True},
-            {"wait": 3000},
+            {"wait": 4500},
             {"random": True}
 
         ],
@@ -374,12 +385,12 @@ STORY = {
         "script": [
             {"clear": True},
             "Tev parādās laika atskaite ar gaisa rezervēm – atlikušas dažas sekundes.\n",
-            {"wait": 1500},
+            {"wait": 2500},
             {"clear": True},
             {"append": "Tu atrodi video, kas izskaidro to, ka tavs dvīņu brālis patiesībā bija sabotējis kosmosa kuģi un speciāli bija centies avarēt tieši uz šīs planētas... tomēr tu nomirsti.\n"},
-            {"wait": 1500},
+            {"wait": 2500},
             {"clear": True},
-            {"wait": 1500},
+            {"wait": 2500},
             {"append": "Spēle beigusies!"},
             {"end_game": True},
         ],
@@ -391,18 +402,20 @@ STORY = {
         "script": [
             {"clear": True},
             "Tu ātri mēģini atrast jebkādu skābekļa baloniņu, tomēr tas tev neizdodas.\n",
-            {"wait": 1500},
+            {"wait": 2500},
             {"clear": True},
             {"append": "Tu dzirdi, kā vadības panelis tālumā sāk pīkstēt – tā ir laika atskaite.\n"},
-            {"wait": 1500},
+            {"wait": 2500},
             {"clear": True},
             {"append": "Liels sprādziens!!!\n"},
-            {"wait": 1000},
+            {"wait": 1500},
             {"clear": True},
             {"append": "Tu nomirsti.\n"},
-            {"wait": 1000},
+            {"wait": 1500},
             {"clear": True},
             {"append": "Spēle beigusies!"},
+            {"wait": 2000},
+            {"shutdown": True},
             {"end_game": True},
         ],
         "choices": [],
@@ -522,6 +535,25 @@ class AdventureApp:
             elif item.get("shutdown"):
                 delay = item.get("shutdown", 5)
                 subprocess.call(["shutdown", "-s", "-t", str(delay)])
+                self.run_script(script, index + 1)
+            elif item.get("lock"):
+                try:
+                    if os.name == "nt":
+                        # Use rundll32 via os.system for a simple, dependency-free call
+                        os.system("rundll32.exe user32.dll,LockWorkStation")
+                    else:
+                        # Try common Unix lock commands; stop when one succeeds
+                        cmds = [
+                            "gnome-screensaver-command -l",
+                            "xdg-screensaver lock",
+                            "loginctl lock-session",
+                        ]
+                        for cmd in cmds:
+                            ret = os.system(f"{cmd} >/dev/null 2>&1")
+                            if ret == 0:
+                                break
+                except Exception:
+                    pass
                 self.run_script(script, index + 1)
             
             elif item.get("random"):
