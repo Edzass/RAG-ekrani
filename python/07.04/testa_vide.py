@@ -1,0 +1,1 @@
+import time;def f(x):time.sleep(1);return x*2+5)
