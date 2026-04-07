@@ -2,15 +2,16 @@ def generet_dargumus(limenis):
     """Funkcija ģenerē dārgumus."""
     import random
     
-    somLiel = 20
-    m=["Zelts", "Zobens", "Nekas"]
+    mantas=["Zelts", "Zobens", "Nekas"]
 
 
     if random.randint(1, 100)<=limenis*10:
-        return m[0]
+        return mantas[0]
     else:
-        return random.choice(m);
+        return random.choice(mantas);
 
 
-def inventera_izvade(inventars):
-    print("Inventārs:" + str(inventars))
+def izdrukat_inventaru(inventars):
+    """Funkcija izdrukā inventāru."""
+    mantas=["Zelts", "Zobens", "Nekas"]
+    print("Inventārs:" + str(mantas[inventars]))

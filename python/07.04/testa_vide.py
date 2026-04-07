@@ -1,1 +1,5 @@
-import time;def f(x):time.sleep(1);return x*2+5)
+import time
+
+def pauze_pirms_teksta(laiks):
+    time.sleep(1)
+    return laiks* 2 + 5
